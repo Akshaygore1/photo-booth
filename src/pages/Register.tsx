@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
+import { Loader2 } from "lucide-react";
+import FormSideFrame from "../components/FormSideFrame";
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -89,147 +91,136 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6">
-        <div className="text-center mb-6">
-          <h2 className="text-3xl font-bold text-gray-800">Create Account</h2>
-          <p className="text-gray-600 mt-2">Join Photo Booth today</p>
-        </div>
+    <div className="min-h-screen bg-background flex">
+      {/* Image Section - Hidden on mobile, visible on lg+ screens */}
+      <FormSideFrame />
 
-        <form onSubmit={handleSubmit}>
-          {error && (
-            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-              {error}
+      {/* Form Section */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center text-neutral-100 p-6">
+        <div className="max-w-md w-full rounded-lg shadow-md p-6">
+          <div className="text-2xl mb-6">Create Account</div>
+
+          <form onSubmit={handleSubmit}>
+            {error && (
+              <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                {error}
+              </div>
+            )}
+
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-base mb-2">
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className={`w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:none focus:border-border focus:bg-transparent ${
+                  validationErrors.name ? "border-red-400" : "border-border"
+                }`}
+                required
+              />
+              {validationErrors.name && (
+                <p className="mt-1 text-sm text-red-600">
+                  {validationErrors.name}
+                </p>
+              )}
             </div>
-          )}
 
-          <div className="mb-4">
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700 mb-2"
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-base mb-2">
+                Email Address
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className={`w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:none focus:border-border focus:bg-transparent ${
+                  validationErrors.email ? "border-red-400" : "border-border"
+                }`}
+                required
+              />
+              {validationErrors.email && (
+                <p className="mt-1 text-sm text-red-600">
+                  {validationErrors.email}
+                </p>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="password" className="block text-base mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className={`w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:none focus:border-border focus:bg-transparent ${
+                  validationErrors.password ? "border-red-400" : "border-border"
+                }`}
+                required
+              />
+              {validationErrors.password && (
+                <p className="mt-1 text-sm text-red-600">
+                  {validationErrors.password}
+                </p>
+              )}
+            </div>
+
+            <div className="mb-6">
+              <label htmlFor="confirmPassword" className="block text-base mb-2">
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className={`w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:none focus:border-border focus:bg-transparent ${
+                  validationErrors.confirmPassword
+                    ? "border-red-400"
+                    : "border-border"
+                }`}
+                required
+              />
+              {validationErrors.confirmPassword && (
+                <p className="mt-1 text-sm text-red-600">
+                  {validationErrors.confirmPassword}
+                </p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full flex items-center justify-center bg-primary hover:bg-secondary disabled:bg-secondary text-white font-bold py-2 px-4 rounded-md transition duration-300"
             >
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                validationErrors.name ? "border-red-400" : "border-gray-300"
-              }`}
-              required
-            />
-            {validationErrors.name && (
-              <p className="mt-1 text-sm text-red-600">
-                {validationErrors.name}
-              </p>
-            )}
+              {loading ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                "Create Account"
+              )}
+            </button>
+          </form>
+
+          <div className="mt-6 text-center space-y-3">
+            <p className="text-zinc-200">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-primary hover:text-secondary underline"
+              >
+                Sign in
+              </Link>
+            </p>
           </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                validationErrors.email ? "border-red-400" : "border-gray-300"
-              }`}
-              required
-            />
-            {validationErrors.email && (
-              <p className="mt-1 text-sm text-red-600">
-                {validationErrors.email}
-              </p>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                validationErrors.password ? "border-red-400" : "border-gray-300"
-              }`}
-              required
-            />
-            {validationErrors.password && (
-              <p className="mt-1 text-sm text-red-600">
-                {validationErrors.password}
-              </p>
-            )}
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                validationErrors.confirmPassword
-                  ? "border-red-400"
-                  : "border-gray-300"
-              }`}
-              required
-            />
-            {validationErrors.confirmPassword && (
-              <p className="mt-1 text-sm text-red-600">
-                {validationErrors.confirmPassword}
-              </p>
-            )}
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-green-500 hover:bg-green-600 disabled:bg-green-300 text-white font-bold py-2 px-4 rounded-md transition duration-300"
-          >
-            {loading ? "Creating Account..." : "Create Account"}
-          </button>
-        </form>
-
-        <div className="mt-6 text-center space-y-3">
-          <p className="text-gray-600">
-            Already have an account?{" "}
-            <Link
-              to="/login"
-              className="text-blue-500 hover:text-blue-600 font-medium"
-            >
-              Sign in
-            </Link>
-          </p>
-          <Link
-            to="/"
-            className="text-gray-500 hover:text-gray-600 text-sm block"
-          >
-            Back to Home
-          </Link>
         </div>
       </div>
     </div>

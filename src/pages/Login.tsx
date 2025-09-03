@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { Loader2 } from "lucide-react";
+import FormSideFrame from "../components/FormSideFrame";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +11,9 @@ const Login: React.FC = () => {
   const { login, loading, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Get success message from location state (e.g., from password reset)
+  const successMessage = (location.state as { message?: string })?.message;
 
   const from =
     (location.state as { from?: { pathname: string } })?.from?.pathname ||
@@ -31,85 +36,92 @@ const Login: React.FC = () => {
       setError(
         err instanceof Error
           ? err.message
-          : "Login failed. Please check your credentials."
+          : "Login failed. Please check your credentials.",
       );
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6">
-        <div className="text-center mb-6">
-          <h2 className="text-3xl font-bold text-gray-800">Login</h2>
-          <p className="text-gray-600 mt-2">Sign in to your account</p>
-        </div>
+    <div className="min-h-screen bg-background flex">
+      {/* Image Section - Hidden on mobile, visible on lg+ screens */}
 
-        <form onSubmit={handleSubmit}>
-          {error && (
-            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-              {error}
+      <FormSideFrame />
+
+      {/* Form Section */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center text-neutral-100 p-6">
+        <div className="max-w-md w-full rounded-lg shadow-md p-6">
+          <div className="text-2xl mb-6">Sign in</div>
+
+          <form onSubmit={handleSubmit}>
+            {successMessage && (
+              <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+                {successMessage}
+              </div>
+            )}
+
+            {error && (
+              <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                {error}
+              </div>
+            )}
+
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-base mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:none focus:bg-transparent focus:border-border"
+                required
+              />
             </div>
-          )}
 
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-2"
+            <div className="mb-6">
+              <label htmlFor="password" className="block text-base mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:none focus:bg-transparent focus:border-border"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full flex items-center justify-center bg-primary hover:bg-secondary disabled:bg-secondary text-white font-bold py-2 px-4 rounded-md transition duration-300"
             >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
+              {loading ? <Loader2 className="animate-spin" /> : "Sign In"}
+            </button>
+          </form>
 
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white font-bold py-2 px-4 rounded-md transition duration-300"
-          >
-            {loading ? "Signing in..." : "Sign In"}
-          </button>
-        </form>
-
-        <div className="mt-6 text-center space-y-3">
-          <p className="text-gray-600">
-            Don't have an account?{" "}
+          <div className="mt-4 text-center">
             <Link
-              to="/register"
-              className="text-green-500 hover:text-green-600 font-medium"
+              to="/forgot-password"
+              className="text-sm text-primary hover:text-secondary underline"
             >
-              Create one
+              Forgot your password?
             </Link>
-          </p>
-          <Link
-            to="/"
-            className="text-blue-500 hover:text-blue-600 text-sm block"
-          >
-            Back to Home
-          </Link>
+          </div>
+
+          <div className="mt-6 text-center text-base space-y-3">
+            <p className="text-zinc-200">
+              Don't have an account?{" "}
+              <Link
+                to="/register"
+                className="text-primary hover:secondary ml-2 underline"
+              >
+                Create one
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

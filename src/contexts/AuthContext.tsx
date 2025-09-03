@@ -17,6 +17,12 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, name: string) => Promise<void>;
   logout: () => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
+  resetPassword: (
+    userId: string,
+    secret: string,
+    password: string,
+  ) => Promise<void>;
   loading: boolean;
   isAuthenticated: boolean;
 }
@@ -94,11 +100,44 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const forgotPassword = async (email: string) => {
+    setLoading(true);
+    try {
+      await account.createRecovery(
+        email,
+        `${window.location.origin}/reset-password`,
+      );
+    } catch (error) {
+      console.error("Forgot password failed:", error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const resetPassword = async (
+    userId: string,
+    secret: string,
+    password: string,
+  ) => {
+    setLoading(true);
+    try {
+      await account.updateRecovery(userId, secret, password);
+    } catch (error) {
+      console.error("Reset password failed:", error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const value: AuthContextType = {
     user,
     login,
     register,
     logout,
+    forgotPassword,
+    resetPassword,
     loading,
     isAuthenticated: !!user,
   };

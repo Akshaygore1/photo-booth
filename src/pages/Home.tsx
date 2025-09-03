@@ -1,41 +1,60 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ShaderBackground from "../components/ShaderBackground";
 
 const Home: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-800 mb-6">
-            Welcome to Photo Booth
+    <ShaderBackground>
+      <main className="absolute bottom-8 left-8 z-20 max-w-lg">
+        <div className="text-left">
+          <div
+            className="inline-flex items-center px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm mb-4 relative"
+            style={{
+              filter: "url(#glass-effect)",
+            }}
+          >
+            <div className="absolute top-0 left-1 right-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full" />
+            <span className="text-white/90 text-xs font-light relative z-10">
+              ✨ New Paper Shaders Experience
+            </span>
+          </div>
+
+          {/* Main Heading */}
+          <h1 className="text-5xl md:text-6xl md:leading-16 tracking-tight font-light text-white mb-4">
+            <span className="font-medium italic instrument">Beautiful</span>{" "}
+            Shader
+            <br />
+            <span className="font-light tracking-tight text-white">
+              Experiences
+            </span>
           </h1>
-          <p className="text-lg text-gray-600 mb-8">
-            Capture and share your best moments with our photo booth
-            application.
+
+          {/* Description */}
+          <p className="text-xs font-light text-white/70 mb-4 leading-relaxed">
+            Create stunning visual experiences with our advanced shader
+            technology. Interactive lighting, smooth animations, and beautiful
+            effects that respond to your every move.
           </p>
-          <div className="space-x-4">
-            <Link
-              to="/login"
-              className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
-            >
-              Login
-            </Link>
+
+          {/* Buttons */}
+          <div className="flex items-center gap-4 flex-wrap">
             <Link
               to="/register"
-              className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
+              className="px-8 py-3 rounded-full bg-transparent border border-white/30 text-white font-normal text-xs transition-all duration-200 hover:bg-white/10 hover:border-white/50 cursor-pointer"
             >
               Register
             </Link>
             <Link
-              to="/dashboard"
-              className="inline-block bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
+              to="/login"
+              className="px-8 py-3 rounded-full bg-white text-black font-normal text-xs transition-all duration-200 hover:bg-white/90 cursor-pointer"
             >
-              Dashboard
+              Login
             </Link>
           </div>
         </div>
-      </div>
-    </div>
+      </main>
+      {/* </div> */}
+    </ShaderBackground>
   );
 };
 
