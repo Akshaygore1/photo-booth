@@ -2,12 +2,14 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import TextEditor from "./components/TextEditor";
 
 // Create router configuration
 const router = createBrowserRouter([
@@ -35,11 +37,20 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <ProtectedRoute>
-        <Dashboard />
+        <Layout />
       </ProtectedRoute>
     ),
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+      {
+        path: ":id",
+        element: <TextEditor />,
+      },
+    ],
   },
-  // Add more protected routes here as needed
   {
     path: "*",
     element: (

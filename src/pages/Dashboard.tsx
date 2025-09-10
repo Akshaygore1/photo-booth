@@ -1,125 +1,152 @@
 import React from "react";
-import { useAuth } from "../hooks/useAuth";
+import { Plus, FileText, MoreHorizontal, Users, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { client } from "../lib/appwrite";
+import { MeshGradient } from "@paper-design/shaders-react";
+
+interface Document {
+  id: string;
+  title: string;
+  lastModified: string;
+  thumbnail?: string;
+  collaborators?: number;
+}
+
+// Mock data for demonstration
+const mockDocuments: Document[] = [
+  {
+    id: "1",
+    title: "Project Planning",
+    lastModified: "2 hours ago",
+    collaborators: 3,
+  },
+  {
+    id: "2",
+    title: "Design System",
+    lastModified: "1 day ago",
+    collaborators: 5,
+  },
+  {
+    id: "3",
+    title: "Meeting Notes",
+    lastModified: "3 days ago",
+    collaborators: 2,
+  },
+  {
+    id: "4",
+    title: "Product Roadmap",
+    lastModified: "1 week ago",
+    collaborators: 8,
+  },
+  {
+    id: "5",
+    title: "User Research",
+    lastModified: "2 weeks ago",
+    collaborators: 4,
+  },
+  {
+    id: "6",
+    title: "Marketing Strategy",
+    lastModified: "3 weeks ago",
+    collaborators: 6,
+  },
+];
 
 const Dashboard: React.FC = () => {
-  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      navigate("/");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
+  const handleCreateDocument = () => {
+    const newDocId = Date.now().toString();
+    navigate(`/dashboard/${newDocId}`);
   };
 
-  const sendPing = async () => {
-    try {
-      const result = await client.ping();
-      const log = {
-        date: new Date(),
-        method: "GET",
-        path: "/v1/ping",
-        status: 200,
-        response: JSON.stringify(result),
-      };
-      console.log(log);
-      alert("Ping successful! Check console for details.");
-    } catch (err) {
-      console.error(err);
-      alert("Ping failed! Check console for details.");
-    }
+  const handleOpenDocument = (docId: string) => {
+    navigate(`/dashboard/${docId}`);
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white shadow">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-800">
-            Photo Booth Dashboard
-          </h1>
-          <div className="flex items-center space-x-4">
-            <span className="text-gray-600">
-              Welcome, {user?.name || user?.email}
-            </span>
-            <button
-              onClick={handleLogout}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-300"
-            >
-              Logout
-            </button>
-          </div>
+      <div className="bg-background px-12 py-4">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-2xl font-semibold text-white">My Documents</h1>
+          <p className="text-sm text-white mt-1">
+            Create and collaborate on your projects
+          </p>
         </div>
-      </header>
+      </div>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* User Info Card */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              User Information
-            </h2>
-            <div className="space-y-2">
-              <p>
-                <span className="font-medium">ID:</span> {user?.$id}
-              </p>
-              <p>
-                <span className="font-medium">Email:</span> {user?.email}
-              </p>
-              <p>
-                <span className="font-medium">Name:</span> {user?.name}
-              </p>
+      <div className="max-w-6xl mx-auto px-6 py-8">
+        {/* Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {/* Add New Document Tile */}
+          <div
+            onClick={handleCreateDocument}
+            className="group relative bg-background border-2 border-dashed border-border rounded-lg p-6  transition-all duration-200 cursor-pointer min-h-[200px] flex flex-col items-center justify-center"
+          >
+            <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-4 group-hover:bg-primary transition-colors duration-200">
+              <Plus className="w-6 h-6 text-white" />
             </div>
+            <h3 className="text-lg font-medium text-white mb-1">
+              New Document
+            </h3>
+            <p className="text-sm text-white text-center">
+              Start a new project
+            </p>
           </div>
 
-          {/* Quick Actions Card */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              Quick Actions
-            </h2>
-            <div className="space-y-3">
-              <button
-                onClick={sendPing}
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition duration-300"
-              >
-                Test Appwrite Connection
-              </button>
-              <button className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded transition duration-300">
-                Take Photo
-              </button>
-              <button className="w-full bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded transition duration-300">
-                View Gallery
-              </button>
-            </div>
-          </div>
+          {/* Document Tiles */}
+          {mockDocuments.map((doc) => (
+            <div
+              key={doc.id}
+              onClick={() => handleOpenDocument(doc.id)}
+              className="group relative bg-background border border-border rounded-lg shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer overflow-hidden"
+            >
+              {/* Thumbnail Placeholder */}
+              <div className="">
+                <MeshGradient
+                  className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"
+                  colors={["#2c2c30", "#bf0d51", "#f02d65"]}
+                  speed={0.3}
+                  swirl={0.3}
+                />
+              </div>
 
-          {/* Photo Booth Status Card */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              Photo Booth Status
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span>Camera:</span>
-                <span className="text-green-500 font-medium">Connected</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>Storage:</span>
-                <span className="text-green-500 font-medium">Available</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>Backend:</span>
-                <span className="text-green-500 font-medium">Online</span>
+              {/* Content */}
+              <div className="p-4">
+                <div className="flex items-start justify-between mb-2">
+                  <h3 className="text-sm font-medium text-white truncate pr-2">
+                    {doc.title}
+                  </h3>
+                  <button className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 p-1 hover:bg-border rounded">
+                    <MoreHorizontal className="w-4 h-4 text-border" />
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between text-xs text-gray-400">
+                  <div className="flex items-center space-x-1">
+                    <Clock className="w-3 h-3" />
+                    <span>{doc.lastModified}</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
-      </main>
+
+        {/* Empty State for when there are no documents */}
+        {mockDocuments.length === 0 && (
+          <div className="text-center py-12">
+            <FileText className="w-12 h-12 text-border mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              No documents yet
+            </h3>
+            <p className="text-border">
+              Create your first document to get started
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
