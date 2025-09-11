@@ -1,6 +1,8 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+import { WorkspaceProvider } from "./contexts/WorkspaceContext";
+import { TodoProvider } from "./contexts/TodoContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
@@ -9,7 +11,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import TextEditor from "./components/TextEditor";
+import Todo from "./components/Todo";
 
 // Create router configuration
 const router = createBrowserRouter([
@@ -47,9 +49,19 @@ const router = createBrowserRouter([
       },
       {
         path: ":id",
-        element: <TextEditor />,
+        element: <Todo />,
       },
     ],
+  },
+  {
+    path: "/workspace/:workspaceId",
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <Todo />
+        </Layout>
+      </ProtectedRoute>
+    ),
   },
   {
     path: "*",
@@ -70,7 +82,11 @@ const router = createBrowserRouter([
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <WorkspaceProvider>
+        <TodoProvider>
+          <RouterProvider router={router} />
+        </TodoProvider>
+      </WorkspaceProvider>
     </AuthProvider>
   );
 };

@@ -1,17 +1,19 @@
-import React from "react";
+import React, { type ReactNode } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 
-const Layout: React.FC = () => {
+interface LayoutProps {
+  children?: ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <Navbar />
 
       {/* Main Content */}
-      <main>
-        <Outlet />
-      </main>
+      <main>{children || <Outlet />}</main>
     </div>
   );
 };
