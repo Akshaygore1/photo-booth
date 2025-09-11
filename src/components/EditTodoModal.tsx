@@ -94,7 +94,12 @@ const EditTodoModal: React.FC<EditTodoModalProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} title="Edit Todo" size="md">
+    <Modal
+      isOpen={isOpen}
+      onClose={handleClose}
+      title="Edit Writing Task"
+      size="md"
+    >
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Title */}
         <div>
@@ -108,7 +113,7 @@ const EditTodoModal: React.FC<EditTodoModalProps> = ({
             className={`w-full px-3 py-2 bg-background border rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary transition-colors ${
               errors.title ? "border-red-500" : "border-border"
             }`}
-            placeholder="Enter todo title..."
+            placeholder="Enter task title..."
             maxLength={100}
           />
           {errors.title && (

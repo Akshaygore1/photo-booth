@@ -1,0 +1,45 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Pen tip shadow -->
+  <path
+    d="M3 21L4.5 19.5L8.5 15.5L12 12L15.5 8.5L19.5 4.5L21 3L20 2L18.5 3.5L14.5 7.5L11 11L7.5 14.5L3.5 18.5L2 20L3 21Z"
+    fill="#f02d65"
+    fill-opacity="0.1"
+  />
+
+  <!-- Pen body -->
+  <path
+    d="M15.5 8.5L19.5 4.5C20.3284 3.67157 20.3284 2.32843 19.5 1.5C18.6716 0.671573 17.3284 0.671573 16.5 1.5L12.5 5.5L15.5 8.5Z"
+    stroke="#f02d65"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+
+  <!-- Pen shaft -->
+  <path
+    d="M12.5 5.5L15.5 8.5L4.5 19.5L1.5 20.5L2.5 17.5L12.5 5.5Z"
+    stroke="#f02d65"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+
+  <!-- Writing line -->
+  <path
+    d="M11.5 6.5L14.5 9.5"
+    stroke="#f02d65"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Ink dot -->
+  <circle
+    cx="3"
+    cy="21"
+    r="1"
+    fill="#f02d65"
+    fill-opacity="0.6"
+  />
+</svg>

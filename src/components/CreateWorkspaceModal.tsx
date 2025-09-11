@@ -33,11 +33,11 @@ const CreateWorkspaceModal: React.FC<CreateWorkspaceModalProps> = ({
     const newErrors: Partial<WorkspaceFormData> = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = "Workspace name is required";
+      newErrors.name = "Space name is required";
     }
 
     if (formData.name.trim().length > 50) {
-      newErrors.name = "Workspace name must be less than 50 characters";
+      newErrors.name = "Space name must be less than 50 characters";
     }
 
     if (formData.description.length > 200) {
@@ -83,14 +83,14 @@ const CreateWorkspaceModal: React.FC<CreateWorkspaceModalProps> = ({
     <Modal
       isOpen={isOpen}
       onClose={handleClose}
-      title="Create New Workspace"
+      title="Create New Writing Space"
       size="md"
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Name */}
         <div>
           <label className="block text-sm font-medium text-white mb-2">
-            Workspace Name *
+            Space Name *
           </label>
           <input
             type="text"
@@ -99,11 +99,11 @@ const CreateWorkspaceModal: React.FC<CreateWorkspaceModalProps> = ({
             className={`w-full px-3 py-2 bg-background border rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary transition-colors ${
               errors.name ? "border-red-500" : "border-border"
             }`}
-            placeholder="Enter workspace name..."
+            placeholder="Enter your creative space name..."
             maxLength={50}
           />
-          {errors.name && (
-            <p className="text-red-400 text-sm mt-1">{errors.name}</p>
+          {!formData.name.trim() && (
+            <p className="text-red-400 text-sm mt-1">Space name is required</p>
           )}
           <p className="text-white/50 text-xs mt-1">
             {formData.name.length}/50 characters
@@ -122,7 +122,7 @@ const CreateWorkspaceModal: React.FC<CreateWorkspaceModalProps> = ({
             className={`w-full px-3 py-2 bg-background border rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary transition-colors resize-none ${
               errors.description ? "border-red-500" : "border-border"
             }`}
-            placeholder="Enter description (optional)..."
+            placeholder="Describe your creative space (optional)..."
             maxLength={200}
           />
           {errors.description && (
@@ -165,7 +165,7 @@ const CreateWorkspaceModal: React.FC<CreateWorkspaceModalProps> = ({
             className="flex-1 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Save size={16} />
-            {loading ? "Creating..." : "Create Workspace"}
+            {loading ? "Creating Space..." : "Create Writing Space"}
           </button>
           <button
             type="button"

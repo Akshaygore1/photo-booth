@@ -98,7 +98,7 @@ const Register: React.FC = () => {
       {/* Form Section */}
       <div className="w-full lg:w-1/2 flex items-center justify-center text-neutral-100 p-6">
         <div className="max-w-md w-full rounded-lg shadow-md p-6">
-          <div className="text-2xl mb-6">Create Account</div>
+          <div className="text-2xl mb-6">Join Textie</div>
 
           <form onSubmit={handleSubmit}>
             {error && (

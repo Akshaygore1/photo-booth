@@ -25,9 +25,12 @@ const Dashboard: React.FC = () => {
       {/* Header */}
       <div className="bg-background px-12 py-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-2xl font-semibold text-white">My Workspaces</h1>
+          <h1 className="text-2xl font-semibold text-white">
+            My Writing Spaces
+          </h1>
           <p className="text-sm text-white mt-1">
-            Organize your todos by creating and managing workspaces
+            Organize your ideas and projects with beautiful, personalized
+            workspaces
           </p>
         </div>
       </div>
@@ -45,10 +48,10 @@ const Dashboard: React.FC = () => {
               <Plus className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-lg font-medium text-white mb-1">
-              New Workspace
+              New Writing Space
             </h3>
             <p className="text-sm text-white text-center">
-              Create a new workspace for your todos
+              Create a new space for your creative projects
             </p>
           </div>
 
@@ -123,17 +126,17 @@ const Dashboard: React.FC = () => {
           <div className="text-center py-12">
             <Briefcase className="w-12 h-12 text-border mx-auto mb-4" />
             <h3 className="text-lg font-medium text-white mb-2">
-              No workspaces yet
+              No writing spaces yet
             </h3>
             <p className="text-border mb-4">
-              Create your first workspace to organize your todos
+              Create your first space to organize your creative projects
             </p>
             <button
               onClick={handleCreateWorkspace}
               className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg inline-flex items-center gap-2"
             >
               <Plus size={16} />
-              Create Workspace
+              Create Writing Space
             </button>
           </div>
         )}

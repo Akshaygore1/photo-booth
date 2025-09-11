@@ -108,8 +108,8 @@ export class WorkspaceService {
   // Create default workspace for new user
   static async createDefaultWorkspace(userId: string): Promise<Workspace> {
     return this.createWorkspace({
-      name: "Personal Workspace",
-      description: "Your default workspace for personal tasks",
+      name: "My Writing Space",
+      description: "Your personal space for creative writing and ideas",
       color: "#3B82F6", // Blue color
       userId,
       isDefault: true,

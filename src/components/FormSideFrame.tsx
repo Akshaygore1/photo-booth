@@ -9,9 +9,10 @@ export default function FormSideFrame() {
       swirl={0.3}
     >
       <div className="text-center text-white px-8">
-        <h1 className="text-4xl font-bold mb-4">Welcome Back!</h1>
+        <h1 className="text-4xl font-bold mb-4">Welcome to Textie! ✍️</h1>
         <p className="text-xl opacity-90 mb-8">
-          Sign in to access your photo booth dashboard
+          Where words come alive and creativity flows freely. Sign in to unleash
+          your inner writer.
         </p>
       </div>
     </MeshGradient>

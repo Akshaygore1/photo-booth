@@ -19,7 +19,9 @@ const Navbar = () => {
               to="/dashboard"
               className="flex items-center space-x-3 group text-white text-2xl font-bold hover:text-primary transition-colors"
             >
-              Textie
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                ✍️ Textie
+              </span>
             </Link>
           </div>
 

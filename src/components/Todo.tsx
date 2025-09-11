@@ -132,9 +132,12 @@ const Todo: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-white">Todo List</h1>
+              <h1 className="text-3xl font-bold text-white">
+                My Writing Tasks
+              </h1>
               <p className="text-white/70 mt-1">
-                Manage your tasks and stay organized
+                Capture ideas, organize thoughts, and track your creative
+                progress
               </p>
             </div>
             <button
@@ -142,7 +145,7 @@ const Todo: React.FC = () => {
               className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
             >
               <Plus size={20} />
-              Add Todo
+              Add Writing Task
             </button>
           </div>
 
@@ -155,7 +158,7 @@ const Todo: React.FC = () => {
               />
               <input
                 type="text"
-                placeholder="Search todos..."
+                placeholder="Search your writing tasks..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 bg-background border border-border rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary"
@@ -176,7 +179,7 @@ const Todo: React.FC = () => {
               }
               className="px-4 py-2 bg-background border border-border rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary"
             >
-              <option value="all">All Todos</option>
+              <option value="all">All Tasks</option>
               <option value="pending">Pending</option>
               <option value="completed">Completed</option>
               <option value="high">High Priority</option>
@@ -205,7 +208,7 @@ const Todo: React.FC = () => {
                       setFormData({ ...formData, title: e.target.value })
                     }
                     className="w-full px-3 py-2 bg-background border border-border rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Enter todo title..."
+                    placeholder="Enter task title..."
                     required
                   />
                 </div>
@@ -265,7 +268,7 @@ const Todo: React.FC = () => {
                   className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors disabled:opacity-50"
                 >
                   <Check size={16} />
-                  {loading ? "Creating..." : "Create Todo"}
+                  {loading ? "Creating..." : "Create Task"}
                 </button>
                 <button
                   type="button"
@@ -300,7 +303,7 @@ const Todo: React.FC = () => {
         {loading && (
           <div className="text-center py-8">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-            <p className="text-white/70 mt-2">Loading todos...</p>
+            <p className="text-white/70 mt-2">Loading tasks...</p>
           </div>
         )}
 
@@ -312,13 +315,13 @@ const Todo: React.FC = () => {
                 <Circle className="w-16 h-16 text-white/20 mx-auto mb-4" />
                 <h3 className="text-xl font-medium text-white mb-2">
                   {searchTerm || filter !== "all"
-                    ? "No matching todos"
-                    : "No todos yet"}
+                    ? "No matching tasks"
+                    : "No writing tasks yet"}
                 </h3>
                 <p className="text-white/70">
                   {searchTerm || filter !== "all"
                     ? "Try adjusting your search or filter"
-                    : "Create your first todo to get started"}
+                    : "Create your first writing task to get started"}
                 </p>
               </div>
             ) : (
@@ -375,7 +378,7 @@ const Todo: React.FC = () => {
                           <button
                             onClick={() => handleEditTodo(todo)}
                             className="p-2 text-white/50 hover:text-white hover:bg-white/10 rounded transition-colors"
-                            title="Edit todo"
+                            title="Edit task"
                           >
                             <Edit3 size={16} />
                           </button>
