@@ -1,16 +1,13 @@
 import { useAuth } from "../hooks/useAuth";
-import { LogOut, Home, CheckSquare } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { logout } = useAuth();
-  const location = useLocation();
 
   const handleLogout = async () => {
     await logout();
   };
-
-  const navLinks = [{ path: "/dashboard", label: "Dashboard", icon: Home }];
 
   return (
     <header className="w-full bg-background border-b border-border">
